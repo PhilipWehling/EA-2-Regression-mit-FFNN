@@ -1,4 +1,29 @@
 body {
   font-family: Arial, sans-serif;
   margin: 24px;
+  line-height: 1.5;
+}
+
+.plot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.plot-card {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.plot-card h3 {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .plot-grid {
+    grid-template-columns: 1fr;
+  }
 }

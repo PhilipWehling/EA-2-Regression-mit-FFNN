@@ -8,9 +8,112 @@
 </head>
 <body>
   <h1>Regression mit FFNN und TensorFlow.js</h1>
-  <p>Projektgrundgerüst läuft.</p>
+
+  <section>
+    <h2>R1) Datensätze</h2>
+    <div class="plot-grid">
+      <div class="plot-card">
+        <h3>Ohne Rauschen</h3>
+        <div id="plot-clean"></div>
+      </div>
+
+      <div class="plot-card">
+        <h3>Mit Rauschen</h3>
+        <div id="plot-noisy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+  <h2>R2) Vorhersage des Modells ohne Rauschen</h2>
+  <div class="plot-grid">
+    <div class="plot-card">
+      <h3>Trainingsdaten</h3>
+      <div id="plot-clean-train-pred"></div>
+      <p id="clean-train-loss-text"></p>
+    </div>
+
+    <div class="plot-card">
+      <h3>Testdaten</h3>
+      <div id="plot-clean-test-pred"></div>
+      <p id="clean-test-loss-text"></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>R3) Vorhersage des besten Modells auf verrauschten Daten</h2>
+  <div class="plot-grid">
+    <div class="plot-card">
+      <h3>Trainingsdaten</h3>
+      <div id="plot-best-train-pred"></div>
+      <p id="best-train-loss-text"></p>
+    </div>
+
+    <div class="plot-card">
+      <h3>Testdaten</h3>
+      <div id="plot-best-test-pred"></div>
+      <p id="best-test-loss-text"></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>R4) Vorhersage des Overfit-Modells auf verrauschten Daten</h2>
+  <div class="plot-grid">
+    <div class="plot-card">
+      <h3>Trainingsdaten</h3>
+      <div id="plot-overfit-train-pred"></div>
+      <p id="overfit-train-loss-text"></p>
+    </div>
+
+    <div class="plot-card">
+      <h3>Testdaten</h3>
+      <div id="plot-overfit-test-pred"></div>
+      <p id="overfit-test-loss-text"></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Diskussion</h2>
+  <p>
+    Beim unverrauschten Datensatz lagen Trainings- und Test-Loss relativ nah beieinander, was auf eine passende Generalisierung des Modells hindeutet.
+    Da die Daten direkt der zugrunde liegenden Funktion folgen, konnte das Netzwerk den Funktionsverlauf gut abbilden.
+    Beim verrauschten Datensatz zeigte sich deutlich, dass die Anzahl der Epochen einen starken Einfluss auf das Ergebnis hat.
+    Zu wenige Epochen führten zu Underfitting, da die Funktion noch nicht ausreichend gelernt wurde.
+    Eine mittlere Epochenzahl lieferte den besten Kompromiss zwischen Anpassung an die Trainingsdaten und Generalisierung auf die Testdaten.
+    Bei sehr vielen Epochen sank der Trainings-Loss weiter, während der Test-Loss höher blieb.
+    Das spricht dafür, dass das Modell zunehmend auch das künstlich hinzugefügte Rauschen der Trainingsdaten mitlernt.
+    Insgesamt zeigt das Experiment, dass verrauschte Daten das Lernen erschweren und die Wahl der Epochenzahl entscheidend für die Modellqualität ist.
+    Da kein separates Validierungsset verwendet wurde, konnte die optimale Epochenzahl nur näherungsweise bestimmt werden.
+  </p>
+</section>
+
+<section>
+  <h2>Dokumentation – Technisch</h2>
+  <p>
+    Verwendet wurden TensorFlow.js für die Definition, das Training und die Auswertung des neuronalen Netzes sowie Plotly.js für die Visualisierung der Datensätze und Modellvorhersagen.
+    Die Anwendung wurde mit HTML, CSS und JavaScript als clientseitige Webanwendung umgesetzt und in Visual Studio Code entwickelt.
+    Die Extension „Live Server“ wurde für die lokale Entwicklung genutzt, um die Seite im Browser zu testen.
+    Eine technische Besonderheit der Lösung ist, dass die Datensätze beim Laden der Seite dynamisch erzeugt und die Modelle direkt im Browser verarbeitet werden.
+    Die Seite wurde über GitHub Pages online bereitgestellt.
+  </p>
+</section>
+
+<section>
+  <h2>Dokumentation – Fachlich</h2>
+  <p>
+    Für die Datenerzeugung wurden 100 gleichverteilte x-Werte aus dem Intervall [-2, 2] erzeugt, die zugehörigen y-Werte berechnet und der Datensatz zufällig in 50 Trainings- und 50 Testdaten aufgeteilt.
+    Zusätzlich wurde eine verrauschte Variante erzeugt, bei der nur die y-Werte mit Gaussian Noise der Varianz 0.05 gestört wurden.
+    Verwendet wurde ein Feed-Forward Neural Network mit zwei Hidden Layers mit je 100 Neuronen, ReLU-Aktivierung, linearem Output, Adam mit Lernrate 0.01, Batch-Size 32 und MSE als Loss.
+    Das Modell auf dem unverrauschten Datensatz wurde mit 200 Epochen trainiert, das Best-Fit-Modell auf dem verrauschten Datensatz mit 100 Epochen und das Overfit-Modell mit 5000 Epochen.
+    Die Bewertung erfolgte jeweils getrennt auf Trainings- und Testdaten anhand des Mean Squared Error sowie über die visuelle Gegenüberstellung von Datenpunkten und Modellvorhersage.
+  </p>
+</section>
 
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
