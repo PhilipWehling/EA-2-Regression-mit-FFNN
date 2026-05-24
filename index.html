@@ -99,6 +99,13 @@
     Eine technische Besonderheit der Lösung ist, dass die Datensätze beim Laden der Seite dynamisch erzeugt und die Modelle direkt im Browser verarbeitet werden.
     Die Seite wurde über GitHub Pages online bereitgestellt.
   </p>
+
+  <p>
+    Während der Implementierung zeigte sich, dass das Training im Overfitting-Modell mit sehr vielen Epochen im Browser spürbar lange dauert.
+    Um die Trainingszeit zu optimieren, wurde die Batch-Size von ursprünglich 32 auf 64 erhöht.
+    Eine größere Batch-Size reduziert die Anzahl der notwendigen Parameter-Updates pro Epoche, wodurch das Training deutlich schneller abläuft.
+    Die Modellqualität blieb für diese Aufgabe unverändert ausreichend, während die Performance der Anwendung erheblich verbessert wurde.
+  </p>
 </section>
 
 <section>
@@ -106,11 +113,12 @@
   <p>
     Für die Datenerzeugung wurden 100 gleichverteilte x-Werte aus dem Intervall [-2, 2] erzeugt, die zugehörigen y-Werte berechnet und der Datensatz zufällig in 50 Trainings- und 50 Testdaten aufgeteilt.
     Zusätzlich wurde eine verrauschte Variante erzeugt, bei der nur die y-Werte mit Gaussian Noise der Varianz 0.05 gestört wurden.
-    Verwendet wurde ein Feed-Forward Neural Network mit zwei Hidden Layers mit je 100 Neuronen, ReLU-Aktivierung, linearem Output, Adam mit Lernrate 0.01, Batch-Size 32 und MSE als Loss.
+    Verwendet wurde ein Feed-Forward Neural Network mit zwei Hidden Layers mit je 100 Neuronen, ReLU-Aktivierung, linearem Output, Adam mit Lernrate 0.01, einer Batch-Size von 64 (zur Optimierung der Trainingszeit) und MSE als Loss.
     Das Modell auf dem unverrauschten Datensatz wurde mit 200 Epochen trainiert, das Best-Fit-Modell auf dem verrauschten Datensatz mit 100 Epochen und das Overfit-Modell mit 5000 Epochen.
     Die Bewertung erfolgte jeweils getrennt auf Trainings- und Testdaten anhand des Mean Squared Error sowie über die visuelle Gegenüberstellung von Datenpunkten und Modellvorhersage.
   </p>
 </section>
+
 
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>

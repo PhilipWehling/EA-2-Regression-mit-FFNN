@@ -138,7 +138,7 @@ async function trainModel(model, trainData, epochs = 200) {
 
   const history = await model.fit(xs, ys, {
     epochs,
-    batchSize: 32,
+    batchSize: 64,
     shuffle: true,
     verbose: 0
   });
