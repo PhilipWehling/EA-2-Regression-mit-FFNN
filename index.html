@@ -120,6 +120,139 @@
 </section>
 
 
+  <details id="dev-tools">
+    <summary>Entwickler-Tools</summary>
+
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="dataset">Datensatz</button>
+      <button class="tab-btn" data-tab="training">Training</button>
+      <button class="tab-btn" data-tab="model-io">Modell speichern/laden</button>
+      <button class="tab-btn" data-tab="test">Modell testen</button>
+    </nav>
+
+    <!-- Tab: Datensatz -->
+    <div class="tab-panel" id="tab-dataset">
+      <h3>Datensatz erzeugen, speichern und laden</h3>
+      <div class="form-grid">
+        <label>Datenpunkte (n)
+          <input type="number" id="ds-n" value="100" min="2" max="10000">
+        </label>
+        <label>Rauschen (Varianz)
+          <input type="number" id="ds-variance" value="0.05" step="0.01" min="0">
+        </label>
+        <label>Train-Anteil
+          <input type="number" id="ds-split" value="0.5" step="0.1" min="0.1" max="0.9">
+        </label>
+        <label class="label-checkbox">
+          <input type="checkbox" id="ds-noisy"> Mit Rauschen
+        </label>
+      </div>
+      <div class="btn-row">
+        <button id="btn-generate-ds">Datensatz erzeugen</button>
+        <button id="btn-save-ds" disabled>Als JSON speichern</button>
+        <label class="file-btn">JSON laden
+          <input type="file" id="input-load-ds" accept=".json">
+        </label>
+      </div>
+      <p id="dev-ds-info" class="status-text"></p>
+      <div id="dev-ds-plot"></div>
+    </div>
+
+    <!-- Tab: Training -->
+    <div class="tab-panel" id="tab-training" style="display:none">
+      <h3>Modell konfigurieren und trainieren</h3>
+      <div class="form-grid">
+        <label>Datensatz
+          <select id="train-dataset-select">
+            <option value="clean">Unverrauscht (Hauptansicht)</option>
+            <option value="noisy">Verrauscht (Hauptansicht)</option>
+            <option value="custom">Benutzerdefiniert (Datensatz-Tab)</option>
+          </select>
+        </label>
+        <label>Epochen
+          <input type="number" id="train-epochs" value="200" min="1">
+        </label>
+        <label>Lernrate
+          <input type="number" id="train-lr" value="0.01" step="0.001" min="0.0001">
+        </label>
+        <label>Batch-Size
+          <input type="number" id="train-batchsize" value="64" min="1">
+        </label>
+        <label>Hidden Layer 1 (Neuronen)
+          <input type="number" id="train-units1" value="100" min="1">
+        </label>
+        <label>Hidden Layer 2 (Neuronen, 0 = kein)
+          <input type="number" id="train-units2" value="100" min="0">
+        </label>
+      </div>
+      <div class="btn-row">
+        <button id="btn-train">Modell trainieren</button>
+      </div>
+      <p id="train-progress" class="status-text"></p>
+      <p id="dev-train-loss" class="loss-text"></p>
+      <div id="dev-train-plot"></div>
+    </div>
+
+    <!-- Tab: Modell speichern/laden -->
+    <div class="tab-panel" id="tab-model-io" style="display:none">
+      <h3>Modell speichern</h3>
+      <div class="form-row">
+        <label>Name
+          <input type="text" id="model-save-name" value="my-model">
+        </label>
+        <button id="btn-save-localstorage">In localStorage speichern</button>
+        <button id="btn-save-download">Als Dateien herunterladen</button>
+      </div>
+
+      <h3>Modell laden</h3>
+      <div class="form-row">
+        <label>Aus localStorage
+          <select id="model-ls-select"><option value="">Lade…</option></select>
+        </label>
+        <button id="btn-load-localstorage">Laden</button>
+      </div>
+      <div class="form-row">
+        <label>model.json
+          <input type="file" id="input-model-json" accept=".json">
+        </label>
+        <label>Weights (.bin)
+          <input type="file" id="input-model-weights" accept=".bin" multiple>
+        </label>
+        <button id="btn-load-files">Aus Dateien laden</button>
+      </div>
+      <p id="model-io-status" class="status-text"></p>
+    </div>
+
+    <!-- Tab: Modell testen -->
+    <div class="tab-panel" id="tab-test" style="display:none">
+      <h3>Modell auf Datensatz testen</h3>
+      <div class="form-grid">
+        <label>Modell
+          <select id="test-model-select">
+            <option value="clean">Clean-Modell (200 Epochen)</option>
+            <option value="best">Best-Fit-Modell (100 Epochen)</option>
+            <option value="overfit">Overfit-Modell (5000 Epochen)</option>
+            <option value="custom">Benutzerdefiniert (trainiert/geladen)</option>
+          </select>
+        </label>
+        <label>Datensatz
+          <select id="test-dataset-select">
+            <option value="clean-train">Unverrauscht – Training</option>
+            <option value="clean-test">Unverrauscht – Test</option>
+            <option value="noisy-train">Verrauscht – Training</option>
+            <option value="noisy-test">Verrauscht – Test</option>
+            <option value="custom">Benutzerdefiniert (Datensatz-Tab)</option>
+          </select>
+        </label>
+      </div>
+      <div class="btn-row">
+        <button id="btn-test">Modell testen</button>
+      </div>
+      <p id="dev-test-loss" class="loss-text"></p>
+      <div id="dev-test-plot"></div>
+    </div>
+  </details>
+
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <script src="main.js"></script>

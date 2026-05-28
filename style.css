@@ -27,3 +27,188 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Entwickler-Tools ──────────────────────────────────────────────────────── */
+
+#dev-tools {
+  margin-top: 40px;
+  border: 2px solid #bbb;
+  border-radius: 10px;
+  padding: 0 24px 20px;
+  background: #f7f7f7;
+}
+
+#dev-tools > summary {
+  cursor: pointer;
+  user-select: none;
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 16px 0 12px;
+  list-style: disclosure-closed;
+}
+
+#dev-tools[open] > summary {
+  list-style: disclosure-open;
+}
+
+.tab-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 0;
+  padding-top: 8px;
+}
+
+.tab-btn {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  background: #eee;
+  cursor: pointer;
+  font-size: 14px;
+  position: relative;
+  top: 2px;
+  transition: background 0.15s;
+}
+
+.tab-btn:hover {
+  background: #ddd;
+}
+
+.tab-btn.active {
+  background: #fff;
+  border-color: #ccc;
+  font-weight: bold;
+  border-bottom: 2px solid #fff;
+}
+
+.tab-panel {
+  padding: 20px 0 8px;
+}
+
+.tab-panel h3 {
+  margin-top: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  margin-bottom: 16px;
+}
+
+.form-grid label,
+.form-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: #444;
+}
+
+.label-checkbox {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px !important;
+  font-size: 14px !important;
+  padding-top: 18px;
+}
+
+.form-grid input,
+.form-grid select,
+.form-row input[type="number"],
+.form-row input[type="text"],
+.form-row select {
+  padding: 5px 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 13px;
+  background: #fff;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.btn-row button,
+.form-row button {
+  padding: 7px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #3a86ff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s;
+}
+
+.btn-row button:hover,
+.form-row button:hover {
+  background: #1c6fe0;
+}
+
+.btn-row button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+.file-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: 6px;
+  background: #e0e0e0;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  transition: background 0.15s;
+}
+
+.file-btn:hover {
+  background: #d0d0d0;
+}
+
+.file-btn input[type="file"] {
+  display: none;
+}
+
+.status-text {
+  font-size: 13px;
+  color: #555;
+  margin: 6px 0;
+  min-height: 1.2em;
+}
+
+.loss-text {
+  font-size: 14px;
+  font-weight: bold;
+  color: #222;
+  margin: 6px 0 12px;
+  min-height: 1.4em;
+}
+
+@media (max-width: 900px) {
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tab-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}
